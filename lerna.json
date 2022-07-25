@@ -1,8 +1,11 @@
 {
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "version": "independent",
+  "useNx": true,
   "command": {
     "publish": {
       "message": "chore(@devon4node): publish new release"

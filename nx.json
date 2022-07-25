@@ -1,0 +1,37 @@
+{
+  "extends": "nx/presets/npm.json",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "prepublish:npm",
+          "publish:npm",
+          "prepublish:next",
+          "publish:next",
+          "test",
+          "format",
+          "lint",
+          "prepublish",
+          "test:watch",
+          "test:cov",
+          "test:debug",
+          "test:e2e",
+          "rm",
+          "copy:schemas"
+        ]
+      }
+    }
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ]
+    }
+  },
+  "affected": {
+    "defaultBase": "develop"
+  }
+}
