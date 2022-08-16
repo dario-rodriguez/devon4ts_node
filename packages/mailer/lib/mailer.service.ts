@@ -18,7 +18,7 @@ export class MailerService implements OnModuleInit {
 
   constructor(
     @Inject(MAILER_TRANSPORT_PROVIDER_NAME)
-    private readonly transporter: Transporter,
+    readonly transporter: Transporter,
     @Inject(MAILER_OPTIONS_PROVIDER_NAME)
     private readonly options: MailerModuleOptions,
   ) {}
@@ -139,7 +139,7 @@ export class MailerService implements OnModuleInit {
       templates
         .filter(value => value.name.endsWith(this.hbsOptions!.extension!) && value.isFile())
         .forEach(element => {
-          this.templates[element.name.substr(0, element.name.indexOf('.'))] = this.hbs.compile(
+          this.templates[element.name.substring(0, element.name.indexOf('.'))] = this.hbs.compile(
             fs.readFileSync(join(this.hbsOptions.templatesDir, element.name)).toString(),
           );
         });
@@ -155,7 +155,7 @@ export class MailerService implements OnModuleInit {
         .filter(value => value.name.endsWith(this.hbsOptions!.extension!) && value.isFile())
         .forEach(element => {
           this.hbs.registerPartial(
-            element.name.substr(0, element.name.indexOf('.')),
+            element.name.substring(0, element.name.indexOf('.')),
             fs.readFileSync(join(this.hbsOptions.partialsDir!, element.name)).toString(),
           );
         });

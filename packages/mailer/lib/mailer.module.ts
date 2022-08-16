@@ -20,7 +20,7 @@ export class MailerModule implements OnModuleDestroy {
 
   constructor(private readonly moduleRef: ModuleRef) {}
 
-  static forRoot(options?: MailerModuleOptions): DynamicModule {
+  static register(options?: MailerModuleOptions): DynamicModule {
     return {
       module: MailerModule,
       providers: [
@@ -40,7 +40,7 @@ export class MailerModule implements OnModuleDestroy {
     };
   }
 
-  static forRootAsync(options: MailerModuleAsyncOptions): DynamicModule {
+  static registerAsync(options: MailerModuleAsyncOptions): DynamicModule {
     const transportProvider = {
       provide: MAILER_TRANSPORT_PROVIDER_NAME,
       useFactory: (mailerOptions: MailerModuleOptions): nodemailer.Transporter => {
