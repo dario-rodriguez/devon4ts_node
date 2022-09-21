@@ -78,7 +78,7 @@
     "lerna": "^5.1.4",
     "reflect-metadata": "^0.1.13",
     "ts-jest": "^28.0.5",
-    "type-fest": "^2.13.1",
+    "type-fest": "^3.0.0",
     "zx": "^7.0.1"
   },
   "config": {
