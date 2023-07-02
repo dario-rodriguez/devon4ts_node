@@ -17,6 +17,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import * as pluralize from 'pluralize';
+import { ASTFileBuilder } from '../../utils/ast-file-builder';
 import {
   BaseNestOptions,
   formatTsFile,
@@ -26,7 +27,6 @@ import {
   transformOptionsToNestJS,
 } from '../../utils/tree-utils';
 import { packagesVersion } from '../packagesVersion';
-import { ASTFileBuilder } from '../../utils/ast-file-builder';
 
 export interface IResourceOptions extends BaseNestOptions {
   name: string;
@@ -211,8 +211,8 @@ function updatePackageJson(): Rule {
 
     if (host.exists(filePath)) {
       const content = JSON.parse(host.read(filePath)!.toString('utf-8'));
-      content.dependencies[packagesVersion.nestjsMappedTypes.packageName] =
-        packagesVersion.nestjsMappedTypes.packageVersion;
+      content.dependencies[packagesVersion['nestjsMappedTypes'].packageName] =
+        packagesVersion['nestjsMappedTypes'].packageVersion;
 
       host.overwrite(filePath, JSON.stringify(content, null, 2));
     }
@@ -242,6 +242,7 @@ function overrideCrud(options: IResourceOptions): Rule {
         template({
           ...strings,
           ...templateOpts,
+          templ: '',
         }),
         move(join('src/app/' as Path, options.name)),
       ]),

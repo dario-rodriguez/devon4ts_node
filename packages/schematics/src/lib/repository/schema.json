@@ -10,7 +10,5 @@
       "x-prompt": "Introduce the crud name"
     }
   },
-  "required": [
-    "name"
-  ]
+  "required": ["name"]
 }

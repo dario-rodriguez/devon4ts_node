@@ -79,6 +79,7 @@ export function main(options: IEntityOptions): Rule {
         template({
           ...strings,
           ...options,
+          templ: '',
         }),
         formatTsFiles(),
         move(strings.dasherize(normalize('/' + join('src/app/' as Path, options.module ?? '.', './model/entities')))),

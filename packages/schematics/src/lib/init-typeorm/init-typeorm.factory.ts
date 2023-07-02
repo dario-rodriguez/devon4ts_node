@@ -278,6 +278,7 @@ export function initTypeorm(options: ITypeormOptions): Rule {
             ...options,
             packagesVersion,
             config,
+            templ: '',
           }),
           formatTsFiles(),
           mergeFiles(tree),

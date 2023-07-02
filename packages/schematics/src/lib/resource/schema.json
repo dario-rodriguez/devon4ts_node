@@ -22,13 +22,7 @@
       "type": "string",
       "description": "The transport layer.",
       "default": "rest",
-      "enum": [
-        "rest",
-        "graphql-code-first",
-        "graphql-schema-first",
-        "microservice",
-        "ws"
-      ],
+      "enum": ["rest", "graphql-code-first", "graphql-schema-first", "microservice", "ws"],
       "x-prompt": {
         "message": "What transport layer do you use?",
         "type": "list",
@@ -69,12 +63,7 @@
       "type": "string",
       "description": "ORM to generate specific files.",
       "default": "none",
-      "enum": [
-        "none",
-        "typeorm",
-        "prisma",
-        "mongoose"
-      ],
+      "enum": ["none", "typeorm", "prisma", "mongoose"],
       "x-prompt": {
         "message": "Which ORM are you using? (No efect if you are not generating the CRUD)",
         "type": "list",
@@ -99,7 +88,5 @@
       }
     }
   },
-  "required": [
-    "name"
-  ]
+  "required": ["name"]
 }

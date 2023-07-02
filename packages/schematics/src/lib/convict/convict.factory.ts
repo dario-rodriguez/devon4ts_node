@@ -100,6 +100,7 @@ export function initConvict(): Rule {
           template({
             ...strings,
             ...packagesVersion,
+            templ: '',
           }),
           formatTsFiles(),
           mergeFiles(host),

@@ -1,0 +1,40 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { genSalt, hash } from 'bcrypt';
+import { plainToClass } from 'class-transformer';
+import { Repository } from 'typeorm';
+import { roles } from '../../auth/model/roles.enum';
+import { User } from '../model/entities/user.entity.ts__templ__';
+
+@Injectable()
+export class UserService {
+  constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
+
+  async findOne(username: string): Promise<User | null> {
+    return this.userRepository.findOne({
+      where: {
+        username,
+      },
+    });
+  }
+
+  async registerUser(user: User): Promise<User> {
+    const actualUser = await this.findOne(user.username!);
+
+    if (actualUser) {
+      throw new Error('User already exists');
+    }
+
+    const salt = await genSalt(12);
+    const hashPass = await hash(user.password, salt);
+
+    return plainToClass(
+      User,
+      await this.userRepository.save({
+        username: user.username,
+        password: hashPass,
+        role: roles.USER,
+      }),
+    );
+  }
+}

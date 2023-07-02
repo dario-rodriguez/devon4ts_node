@@ -1,4 +1,5 @@
-import { pid } from '../lib';
+import { pid } from '../src';
+
 describe('pid', () => {
   it('should add the pid to the info object', () => {
     const input = { level: 'info', message: 'message' };

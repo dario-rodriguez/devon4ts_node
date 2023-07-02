@@ -58,6 +58,7 @@ export function main(options: IRespositoryOptions): Rule {
         template({
           ...strings,
           name,
+          templ: '',
         }),
         formatTsFiles(),
         move(path),

@@ -1,5 +1,5 @@
 import { blue, cyan, green, grey, red, white, yellow } from 'chalk';
-import { colorize } from '../lib';
+import { colorize } from '../src';
 
 describe('colorize', () => {
   it('should apply colors to the log object', () => {

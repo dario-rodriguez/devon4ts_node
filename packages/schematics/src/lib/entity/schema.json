@@ -10,7 +10,5 @@
       "x-prompt": "Introduce the entity name"
     }
   },
-  "required": [
-    "name"
-  ]
+  "required": ["name"]
 }

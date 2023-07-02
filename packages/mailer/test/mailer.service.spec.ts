@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Transporter } from 'nodemailer';
 import { join } from 'path';
-import { MAILER_OPTIONS_PROVIDER_NAME, MAILER_TRANSPORT_PROVIDER_NAME } from '../lib/mailer.constants';
-import { MailerService } from '../lib/mailer.service';
+import { MAILER_OPTIONS_PROVIDER_NAME, MAILER_TRANSPORT_PROVIDER_NAME } from '../src/lib/mailer.constants';
+import { MailerService } from '../src/lib/mailer.service';
 
 describe('MailerService', () => {
   let service: MailerService;
@@ -81,11 +81,11 @@ describe('MailerService', () => {
       ...input,
       from: 'someone@whatever.com',
       html: `<!DOCTYPE html>
-<html lang=\"en\" xml:lang=\"en\">
+<html lang="en" xml:lang="en">
 
 <head>
-  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">
-  <meta name=\"viewport\" content=\"width=device-width\">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
   <title>my title</title>
 </head>
 

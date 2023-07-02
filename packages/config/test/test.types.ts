@@ -1,6 +1,6 @@
-import { BaseConfig } from '../lib';
-import { IsString, IsOptional, IsUrl, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsOptional, IsString, IsUrl, ValidateNested } from 'class-validator';
+import { BaseConfig } from '../src';
 
 class NestedTypes {
   @IsString()

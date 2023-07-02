@@ -1,5 +1,6 @@
-import { separator } from '../lib';
+import { TransformableInfo } from 'logform';
 import { MESSAGE } from 'triple-beam';
+import { separator } from '../src';
 
 describe('separator', () => {
   it('should format the log message by using |', () => {
@@ -12,7 +13,7 @@ describe('separator', () => {
     };
     const expectedInfo = 'info | 2022-08-09T10:00:00.000Z | 1234 | MyApp | message';
 
-    expect(separator().transform(input)[MESSAGE]).toStrictEqual(expectedInfo);
+    expect((separator().transform(input) as TransformableInfo)[MESSAGE]).toStrictEqual(expectedInfo);
   });
 
   it('should log the correlationId if present and skip the pid', () => {
@@ -26,7 +27,7 @@ describe('separator', () => {
     };
     const expectedInfo = 'info | 2022-08-09T10:00:00.000Z | correlation | MyApp | message';
 
-    expect(separator().transform(input)[MESSAGE]).toStrictEqual(expectedInfo);
+    expect((separator().transform(input) as TransformableInfo)[MESSAGE]).toStrictEqual(expectedInfo);
   });
 
   it('should use "main" as context if no context is provided', () => {
@@ -38,7 +39,7 @@ describe('separator', () => {
     };
     const expectedInfo = 'info | 2022-08-09T10:00:00.000Z | 1234 | main | message';
 
-    expect(separator().transform(input)[MESSAGE]).toStrictEqual(expectedInfo);
+    expect((separator().transform(input) as TransformableInfo)[MESSAGE]).toStrictEqual(expectedInfo);
   });
 
   it('should include the extras', () => {
@@ -52,7 +53,7 @@ describe('separator', () => {
     };
     const expectedInfo = 'info | 2022-08-09T10:00:00.000Z | 1234 | MyApp | message | extra 1 | extra 2';
 
-    expect(separator().transform(input)[MESSAGE]).toStrictEqual(expectedInfo);
+    expect((separator().transform(input) as TransformableInfo)[MESSAGE]).toStrictEqual(expectedInfo);
   });
 
   it('should skip the extras if an empty array is provided', () => {
@@ -66,7 +67,7 @@ describe('separator', () => {
     };
     const expectedInfo = 'info | 2022-08-09T10:00:00.000Z | 1234 | MyApp | message';
 
-    expect(separator().transform(input)[MESSAGE]).toStrictEqual(expectedInfo);
+    expect((separator().transform(input) as TransformableInfo)[MESSAGE]).toStrictEqual(expectedInfo);
   });
 
   it('should include the stack trace', () => {
@@ -80,6 +81,6 @@ describe('separator', () => {
     };
     const expectedInfo = 'info | 2022-08-09T10:00:00.000Z | 1234 | MyApp | message | this is the provided stack trace';
 
-    expect(separator().transform(input)[MESSAGE]).toStrictEqual(expectedInfo);
+    expect((separator().transform(input) as TransformableInfo)[MESSAGE]).toStrictEqual(expectedInfo);
   });
 });

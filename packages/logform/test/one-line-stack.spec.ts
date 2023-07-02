@@ -1,4 +1,5 @@
-import { oneLineStack } from '../lib';
+import { oneLineStack } from '../src';
+
 describe('oneLineStack', () => {
   it('should remove all new lines from stack', () => {
     const input = { level: 'info', message: 'error message', stack: 'error \n at main.ts' };

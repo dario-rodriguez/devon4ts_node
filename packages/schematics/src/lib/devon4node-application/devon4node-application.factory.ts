@@ -118,6 +118,7 @@ export function devon4nodeApplication(options: IDevon4nodeApplicationOptions): R
             ...strings,
             ...formattedOptions,
             ...packagesVersion,
+            templ: '',
           }),
           move(name),
           mergeFiles(tree),

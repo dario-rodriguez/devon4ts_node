@@ -1,5 +1,6 @@
-import { logfmt } from '../lib';
+import { TransformableInfo } from 'logform';
 import { MESSAGE } from 'triple-beam';
+import { logfmt } from '../src';
 
 describe('logfmt', () => {
   it('should format the log message by using logfmt', () => {
@@ -12,7 +13,7 @@ describe('logfmt', () => {
     };
     const expected = 'pid=1234 level=info message=message timestamp=2022 context=MyApp';
 
-    expect(logfmt().transform(input)[MESSAGE]).toStrictEqual(expected);
+    expect((logfmt().transform(input) as TransformableInfo)[MESSAGE]).toStrictEqual(expected);
   });
 
   it('should use "main" as context if not present', () => {
@@ -22,7 +23,7 @@ describe('logfmt', () => {
     };
     const expected = 'level=info message=message context=main';
 
-    expect(logfmt().transform(input)[MESSAGE]).toStrictEqual(expected);
+    expect((logfmt().transform(input) as TransformableInfo)[MESSAGE]).toStrictEqual(expected);
   });
 
   it('should not print the extras if an empty array is provided', () => {
@@ -33,6 +34,6 @@ describe('logfmt', () => {
     };
     const expected = 'level=info message=message context=main';
 
-    expect(logfmt().transform(input)[MESSAGE]).toStrictEqual(expected);
+    expect((logfmt().transform(input) as TransformableInfo)[MESSAGE]).toStrictEqual(expected);
   });
 });

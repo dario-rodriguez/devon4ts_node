@@ -6,20 +6,9 @@
   "properties": {
     "db": {
       "type": "string",
-      "enum": [
-        "postgres",
-        "cockroachdb",
-        "mariadb",
-        "mysql",
-        "sqlite",
-        "oracle",
-        "mssql",
-        "mongodb"
-      ],
+      "enum": ["postgres", "cockroachdb", "mariadb", "mysql", "sqlite", "oracle", "mssql", "mongodb"],
       "x-prompt": "What kind of database do you want to use?"
     }
   },
-  "required": [
-    "db"
-  ]
+  "required": ["db"]
 }

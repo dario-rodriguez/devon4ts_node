@@ -1,0 +1,3 @@
+{
+  "*.ts": ["nx format:write", "eslint"]
+}

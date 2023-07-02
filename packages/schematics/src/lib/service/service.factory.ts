@@ -46,6 +46,7 @@ export function main(options: IServiceOptions): Rule {
         template({
           ...strings,
           name,
+          templ: '',
         }),
         formatTsFiles(),
         move(path),

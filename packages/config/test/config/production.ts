@@ -1,4 +1,4 @@
-import { BaseConfig } from '../../lib/base-config';
+import { BaseConfig } from '../../src';
 
 const config: BaseConfig = {
   isDev: false,

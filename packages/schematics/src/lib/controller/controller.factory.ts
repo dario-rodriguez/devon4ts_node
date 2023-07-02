@@ -1,9 +1,9 @@
 import { basename, join, normalize, Path, strings } from '@angular-devkit/core';
 import { apply, chain, filter, mergeWith, move, noop, Rule, template, Tree, url } from '@angular-devkit/schematics';
 import { ModuleFinder } from '@nestjs/schematics/dist/utils/module.finder';
-import { formatTsFile, formatTsFiles, stopExecutionIfNotRunningAtRootFolder } from '../../utils/tree-utils';
 import * as pluralize from 'pluralize';
 import { ASTFileBuilder } from '../../utils/ast-file-builder';
+import { formatTsFile, formatTsFiles, stopExecutionIfNotRunningAtRootFolder } from '../../utils/tree-utils';
 
 export interface IControllerOptions {
   name: string;
@@ -41,9 +41,10 @@ export function main(options: IControllerOptions): Rule {
     stopExecutionIfNotRunningAtRootFolder(),
     mergeWith(
       apply(url('./files'), [
-        options.spec ? noop() : filter(p => !p.endsWith('.spec.ts')),
+        options.spec ? noop() : filter(p => !p.endsWith('.spec.ts__templ__')),
         template({
           ...strings,
+          templ: '',
           name,
         }),
         move(path),

@@ -1,0 +1,56 @@
+{
+  "name": "schematics",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/schematics/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/schematics",
+        "main": "packages/schematics/src/index.ts",
+        "tsConfig": "packages/schematics/tsconfig.lib.json",
+        "assets": [
+          "packages/schematics/*.md",
+          "LICENSE.txt",
+          "packages/schematics/assets/lib/**/*",
+          "packages/schematics/src/lib/**/schema.json"
+        ],
+        "swcExclude": [
+          "./src/**/.*.spec.ts$",
+          "./**/.*.spec.ts$",
+          "./src/**/jest-setup.ts$",
+          "./**/jest-setup.ts$",
+          "./**/.*.js$"
+        ]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs schematics {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/schematics/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/schematics/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

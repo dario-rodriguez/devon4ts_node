@@ -1,5 +1,5 @@
 import { Path, strings } from '@angular-devkit/core';
-import { apply, chain, mergeWith, Rule, template, Tree, url } from '@angular-devkit/schematics';
+import { Rule, Tree, apply, chain, mergeWith, template, url } from '@angular-devkit/schematics';
 import { ModuleFinder } from '@nestjs/schematics/dist/utils/module.finder';
 import { noop } from 'rxjs';
 import { ASTFileBuilder } from '../../utils/ast-file-builder';
@@ -129,6 +129,7 @@ export function authJWT(): Rule {
         apply(url('./files'), [
           template({
             ...strings,
+            templ: '',
             config,
             packagesVersion,
           }),
