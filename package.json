@@ -24,7 +24,7 @@
     "@angular-devkit/schematics-cli": "^14.2.3",
     "@nestjs/cli": "^9.1.3",
     "lodash": "^4.17.21",
-    "prettier": "^2.7.1",
+    "prettier": "^3.2.5",
     "typescript": "^4.8.3"
   },
   "devDependencies": {
@@ -39,7 +39,7 @@
     "@types/node": "^18.7.21",
     "@types/nodemailer": "^6.4.6",
     "@types/pluralize": "^0.0.33",
-    "@types/prettier": "^2.7.1",
+    "@types/prettier": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
     "class-transformer": "^0.5.1",
