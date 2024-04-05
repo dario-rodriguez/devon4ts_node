@@ -70,7 +70,7 @@
     "prettier": "^2.8.8",
     "ts-jest": "^29.1.2",
     "ts-node": "10.9.1",
-    "typescript": "~5.3.3",
+    "typescript": "~5.4.4",
     "zx": "^7.2.3"
   },
   "nx": {
