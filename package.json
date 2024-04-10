@@ -40,7 +40,7 @@
     "@nx/devkit": "18.0.7",
     "@nx/eslint": "18.0.7",
     "@nx/eslint-plugin": "18.0.7",
-    "@nx/jest": "18.0.7",
+    "@nx/jest": "18.2.4",
     "@nx/js": "18.0.7",
     "@nx/plugin": "18.0.7",
     "@nx/webpack": "18.0.7",
