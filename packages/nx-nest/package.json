@@ -37,7 +37,7 @@
     "@nx/devkit": "19.0.0",
     "@nx/eslint": "19.0.0",
     "@nx/nest": "19.0.0",
-    "@swc/helpers": "~0.5.2",
+    "@swc/helpers": "~0.5.11",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "ts-morph": "^21.0.1"
