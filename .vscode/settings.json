@@ -10,20 +10,18 @@
     {
       "name": "logform",
       "rootPath": "packages/logform",
-      "jestCommandLine": "nx run logform:test"
+      "jestCommandLine": "pnpm exec nx run logform:test"
     },
     {
       "name": "nx-nest",
       "rootPath": "packages/nx-nest",
-      "jestCommandLine": "nx run nx-nest:test --forceExit"
+      "jestCommandLine": "pnpm exec nx run nx-nest:test --forceExit"
     },
     {
       "name": "mailer",
       "rootPath": "packages/mailer",
-      "jestCommandLine": "nx run mailer:test"
+      "jestCommandLine": "pnpm exec nx run mailer:test"
     }
   ],
-  "debug.javascript.defaultRuntimeExecutable": {
-    "pwa-node": "/mise/shims/node"
-  }
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
