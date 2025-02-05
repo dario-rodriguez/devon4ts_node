@@ -1,7 +1,7 @@
+import { join } from 'path';
 import { Inject, Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import * as fs from 'fs-extra';
 import { SendMailOptions, SentMessageInfo, Transporter } from 'nodemailer';
-import { join } from 'path';
 import { MAILER_OPTIONS_PROVIDER_NAME, MAILER_TRANSPORT_PROVIDER_NAME } from './mailer.constants';
 import { IHandlebarsOptions, MailerModuleOptions } from './mailer.types';
 

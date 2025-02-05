@@ -1,8 +1,6 @@
 const { FlatCompat } = require('@eslint/eslintrc');
 const js = require('@eslint/js');
 const nxEslintPlugin = require('@nx/eslint-plugin');
-const eslintPluginPrettier = require('eslint-plugin-prettier');
-const eslintConfigPrettier = require('eslint-config-prettier');
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -16,7 +14,6 @@ module.exports = [
   {
     plugins: {
       '@nx': nxEslintPlugin,
-      'prettier': eslintPluginPrettier,
     },
   },
   {
@@ -58,7 +55,6 @@ module.exports = [
         '@typescript-eslint/explicit-function-return-type': 'error',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
-        'prettier/prettier': 'error',
         'sort-imports': [
           'error',
           {
@@ -93,5 +89,4 @@ module.exports = [
         ...config.rules,
       },
     })),
-  eslintConfigPrettier,
 ];

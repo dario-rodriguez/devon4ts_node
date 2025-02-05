@@ -1,10 +1,10 @@
+import { join } from 'path';
 import { ProjectConfiguration, Tree, readProjectConfiguration } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { ApplicationGeneratorOptions } from '@nx/nest/src/generators/application/schema';
 import libraryGenerator from '@nx/nest/src/generators/library/library';
 import { LibraryGeneratorOptions } from '@nx/nest/src/generators/library/schema';
 import { moduleGenerator } from '@nx/nest/src/generators/module/module';
-import { join } from 'path';
 import applicationGenerator from '../application/application';
 import { entityGenerator } from './entity';
 

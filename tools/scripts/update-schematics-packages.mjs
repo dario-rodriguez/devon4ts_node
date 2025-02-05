@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 
-import { IndentationText, Project, QuoteKind } from 'ts-morph';
 import { fileURLToPath } from 'url';
+import { IndentationText, Project, QuoteKind } from 'ts-morph';
 import { fs } from 'zx';
 import 'zx/globals';
 

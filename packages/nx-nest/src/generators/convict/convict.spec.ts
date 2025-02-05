@@ -47,8 +47,8 @@ describe('convict generator', () => {
   });
 
   describe('application files', () => {
-    it('should add convict configuration to main.ts', async () => {
-      expect(tree.read(`${appConfig.root}/src/main.ts`)?.toString('utf-8')).toMatchSnapshot();
+    it('should add convict configuration to app.ts', async () => {
+      expect(tree.read(`${appConfig.root}/src/app.ts`)?.toString('utf-8')).toMatchSnapshot();
     });
 
     it('should generate config.ts file', async () => {

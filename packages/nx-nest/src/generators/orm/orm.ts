@@ -1,7 +1,7 @@
-import { formatFiles, installPackagesTask, output, readProjectConfiguration, Tree } from '@nx/devkit';
+import { Tree, formatFiles, installPackagesTask, output, readProjectConfiguration } from '@nx/devkit';
 import { mergeDockerCompose } from '../../utils/merge';
 import { ensureProjectIsAnApplication } from '../../utils/tree-utils';
-import { dbType, InitTypeormGeneratorSchema } from './schema';
+import { InitTypeormGeneratorSchema, dbType } from './schema';
 import { generateTypeormConfiguration } from './typeorm';
 
 const compose: Record<dbType, string> = {

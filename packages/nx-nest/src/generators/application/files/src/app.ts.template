@@ -1,0 +1,55 @@
+import { WinstonLogger } from '@<%= npmScope %>/shared/logger';
+import { INestApplication, Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app/app.module';
+
+export class App {
+  nestApp: INestApplication;
+
+  constructor(app: INestApplication) {
+    this.nestApp = app;
+  }
+
+  static async create(): Promise<App> {
+    const nestApp = await NestFactory.create(AppModule, { bufferLogs: true });
+    const app = new App(nestApp);
+
+    await app.setLogger();
+    app.nestApp.setGlobalPrefix('api');
+    app.nestApp.enableVersioning({
+      type: VersioningType.URI,
+      defaultVersion: '1',
+    });
+
+    app.nestApp.useGlobalPipes(
+      new ValidationPipe({
+        transform: true,
+        transformOptions: {
+          excludeExtraneousValues: true,
+        },
+      }),
+    );
+    app.nestApp.enableShutdownHooks();
+    return app;
+  }
+
+  private getLogger(): Promise<WinstonLogger> {
+    return this.nestApp.resolve(WinstonLogger);
+  }
+
+  async setLogger(): Promise<void> {
+    const logger = await this.getLogger();
+    this.nestApp.useLogger(logger);
+  }
+
+  async listen(): Promise<this> {
+    const port = process.env.PORT ?? 3000;
+    await this.nestApp.listen(port);
+    Logger.log(`🚀 Application is running on: http://localhost:${port}/api/v1`);
+    return this;
+  }
+
+  close(): Promise<void> {
+    return this.nestApp.close();
+  }
+}

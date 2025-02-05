@@ -1,5 +1,5 @@
-import { GeneratorCallback, Tree } from '@nx/devkit';
 import { join } from 'path';
+import { GeneratorCallback, Tree } from '@nx/devkit';
 import devon4tsApplicationGenerator from '../application/application';
 import { PresetGeneratorSchema } from './schema';
 

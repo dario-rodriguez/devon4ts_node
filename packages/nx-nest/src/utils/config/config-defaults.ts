@@ -1,5 +1,5 @@
-import { Tree, generateFiles } from '@nx/devkit';
 import { dirname, join } from 'path';
+import { Tree, generateFiles } from '@nx/devkit';
 import { ASTFileBuilder } from '../ast-file-builder';
 
 export function ensureConfigFile(tree: Tree, projectRoot: string, npmScope: string): void {

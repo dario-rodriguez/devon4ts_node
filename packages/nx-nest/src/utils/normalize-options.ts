@@ -1,10 +1,10 @@
-import { names, Tree } from '@nx/devkit';
+import { basename, dirname, join } from 'path';
+import { Tree, names } from '@nx/devkit';
 import {
   ArtifactGenerationOptions,
-  determineArtifactNameAndDirectoryOptions,
   NameAndDirectoryOptions,
+  determineArtifactNameAndDirectoryOptions,
 } from '@nx/devkit/src/generators/artifact-name-and-directory-utils';
-import { basename, dirname, join } from 'path';
 import { findModuleFile } from './tree-utils';
 
 export async function normalizeOptions(

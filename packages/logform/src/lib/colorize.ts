@@ -1,4 +1,4 @@
-import { blue, ChalkFunction, cyan, green, grey, red, white, yellow } from 'chalk';
+import { ChalkFunction, blue, cyan, green, grey, red, white, yellow } from 'chalk';
 import { Format, TransformableInfo } from 'logform';
 
 export interface ColorizeFormatterOptions {

@@ -2,11 +2,7 @@
   "name": "@devon4ts/nx-nest",
   "version": "6.0.0-3",
   "description": "NX plugin for NestJS using devon4ts",
-  "keywords": [
-    "nx plugin",
-    "nestjs",
-    "devon4ts"
-  ],
+  "keywords": ["nx plugin", "nestjs", "devon4ts"],
   "author": {
     "name": "Capgemini",
     "url": "https://www.capgemini.com/"

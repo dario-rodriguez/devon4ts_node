@@ -2,11 +2,7 @@
   "name": "@devon4ts/logform",
   "version": "6.0.0-2",
   "description": "devon4ts Winston Logger formatters.",
-  "keywords": [
-    "nestjs",
-    "devon4ts",
-    "devonfw"
-  ],
+  "keywords": ["nestjs", "devon4ts", "devonfw"],
   "author": {
     "name": "Capgemini",
     "url": "https://www.capgemini.com/"

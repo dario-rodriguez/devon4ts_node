@@ -1,5 +1,5 @@
+import { basename, dirname, join, relative } from 'node:path';
 import { ProjectConfiguration, Tree, readJson, workspaceRoot } from '@nx/devkit';
-import { basename, dirname, join, relative } from 'path';
 
 export function existsConvictConfig(tree: Tree, projectRoot: string): boolean {
   if (projectRoot.endsWith('/src')) {
@@ -65,7 +65,7 @@ export function calculateTestFolderPath(tree: Tree, path: string): string {
     name = basename(dir);
   }
 
-  const testPath = 'test/' + relative(dir, path).replace(/^(lib|app)\//, '');
+  const testPath = `test/${relative(dir, path).replace(/^(lib|app)\//, '')}`;
 
   return join(dir, testPath);
 }

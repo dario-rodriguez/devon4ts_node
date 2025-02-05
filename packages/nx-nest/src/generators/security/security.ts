@@ -1,11 +1,11 @@
 import {
+  GeneratorCallback,
+  Tree,
   addDependenciesToPackageJson,
   formatFiles,
-  GeneratorCallback,
   installPackagesTask,
   readProjectConfiguration,
   runTasksInSerial,
-  Tree,
 } from '@nx/devkit';
 import { ASTFileBuilder } from '../../utils/ast-file-builder';
 import { ensureProjectIsAnApplication } from '../../utils/tree-utils';

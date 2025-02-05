@@ -1,14 +1,14 @@
 import '@nestjs/schematics';
+import * as path from 'path';
 import {
+  Tree,
   formatFiles,
   generateFiles,
   installPackagesTask,
   names,
   output,
   readProjectConfiguration,
-  Tree,
 } from '@nx/devkit';
-import * as path from 'path';
 import { ASTFileBuilder } from '../../utils/ast-file-builder';
 import { findModuleFile } from '../../utils/tree-utils';
 import { EntityGeneratorSchema } from './schema';

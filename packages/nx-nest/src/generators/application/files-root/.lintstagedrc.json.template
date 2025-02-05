@@ -1,4 +1,4 @@
 {
-  "*": "pnpm nx format:write --uncommitted",
-  "*.ts": ["pnpm nx affected --target=lint --uncommitted --fix --"]
+  "*": "<%= command %> nx format:write --uncommitted",
+  "*.ts": ["<%= command %> nx affected --target=lint --uncommitted --fix --"]
 }

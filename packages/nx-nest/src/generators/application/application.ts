@@ -1,8 +1,10 @@
+import * as path from 'path';
 /* eslint-disable no-console */
 import {
   GeneratorCallback,
   Tree,
   addDependenciesToPackageJson,
+  detectPackageManager,
   formatFiles,
   generateFiles,
   installPackagesTask,
@@ -16,7 +18,6 @@ import { ApplicationGeneratorOptions } from '@nx/nest/src/generators/application
 import { normalizeOptions as normalizeLibraryOptions } from '@nx/nest/src/generators/library/lib/normalize-options';
 import { libraryGenerator } from '@nx/nest/src/generators/library/library';
 import { NormalizedOptions } from '@nx/nest/src/generators/library/schema';
-import * as path from 'path';
 import { ASTFileBuilder } from '../../utils/ast-file-builder';
 import { getNpmScope, getRelativePathToWorkspaceRoot, updateJestConfig } from '../../utils/tree-utils';
 import { packagesVersion } from '../packagesVersion';
@@ -33,69 +34,6 @@ const prettierConfiguration = {
   quoteProps: 'consistent',
   useTabs: false,
 };
-
-export async function applicationGenerator(
-  tree: Tree,
-  options: ApplicationGeneratorOptions,
-): Promise<GeneratorCallback> {
-  const normalizedOptions = await normalizeOptions(tree, {
-    ...options,
-    strict: true,
-    skipFormat: true,
-    addPlugin: false,
-  });
-  const npmScope = getNpmScope(tree) ?? '';
-
-  const libraryOptions = await normalizeLibraryOptions(tree, {
-    ...normalizedOptions,
-    name: 'shared-logger',
-    // projectNameAndRootFormat: 'as-provided',
-    strict: true,
-    importPath: `@${npmScope}/shared/logger`,
-    directory: path.join(getRelativePathToWorkspaceRoot(), 'libs/shared/logger'),
-    skipFormat: true,
-    skipPackageJson: true,
-    testEnvironment: 'node',
-    addPlugin: false,
-  });
-
-  const appTasks = await nestApplicationGenerator(tree, normalizedOptions);
-  const libTasks = await generateLoggerLibrary(tree, libraryOptions);
-  if (!options.skipPackageJson) {
-    updatePackageJson(tree);
-  }
-  updateTsconfigJson(tree);
-  updatePrettier(tree);
-  updateESLint(tree);
-  if (!tree.exists('./husky/pre-commit')) {
-    generateFiles(tree, path.join(__dirname, 'files-root'), '', normalizedOptions);
-  }
-  generateFiles(tree, path.join(__dirname, 'files'), normalizedOptions.appProjectRoot, {
-    ...normalizedOptions,
-    npmScope,
-  });
-  deleteFiles(tree, normalizedOptions.appProjectRoot);
-  updateMain(tree, normalizedOptions.appProjectRoot, npmScope);
-  addDeclarationToModule(tree, normalizedOptions.appProjectRoot);
-
-  if (!options.skipFormat) {
-    await formatFiles(tree);
-  }
-  return runTasksInSerial(
-    ...[
-      appTasks,
-      libTasks,
-      (): void => {
-        installPackagesTask(tree);
-      },
-      (): void => {
-        output.log({ title: `NestJS app generated successfully!` });
-      },
-    ],
-  );
-}
-
-export default applicationGenerator;
 
 function deleteFiles(tree: Tree, projectRoot: string): void {
   tree.delete(path.join(projectRoot, 'src/app/app.controller.ts'));
@@ -194,78 +132,37 @@ function updatePrettier(tree: Tree): void {
 }
 
 function updateESLint(tree: Tree): void {
-  if (!tree.exists('/.eslintrc.json')) {
-    return;
-  }
-  updateJson(tree, `/.eslintrc.json`, eslintConfig => {
-    const typescript = eslintConfig.overrides.find((elem: { extends?: string[] }) =>
-      elem.extends?.includes('plugin:@nx/typescript'),
-    );
-    if (typescript) {
-      typescript.rules = {
-        ...(typescript.rules ?? {}),
-        'no-console': 'error',
-        '@typescript-eslint/explicit-function-return-type': 'error',
-        '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/no-non-null-assertion': 'off',
-        'sort-imports': [
-          'error',
-          {
-            allowSeparatedGroups: false,
-            ignoreDeclarationSort: true,
-            ignoreMemberSort: true,
-          },
-        ],
-      };
-    }
-    return eslintConfig;
-  });
-}
-
-function updateMain(tree: Tree, projectRoot: string, npmScope: string): void {
-  const mainPath = path.join(projectRoot, 'src/main.ts');
-  if (!tree.exists(mainPath)) {
+  const eslintConfigPath = '/eslint.config.cjs';
+  if (!tree.exists(eslintConfigPath)) {
     return;
   }
 
-  let mainContent = tree.read(mainPath)!.toString('utf-8');
-  mainContent = mainContent.replace(
-    'NestFactory.create(AppModule)',
-    `NestFactory.create(AppModule, { bufferLogs: true });
+  let eslintConfigContent = tree.read(eslintConfigPath)!.toString('utf-8');
 
-      const logger = await app.resolve(WinstonLogger);
-      app.useLogger(logger);
-
-      `,
+  eslintConfigContent = eslintConfigContent.replace(
+    '];',
+    ` {
+    files: ['*.ts', '*.tsx'],
+    rules: {
+      'no-console': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      'sort-imports': [
+        'error',
+        {
+          allowSeparatedGroups: false,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: true,
+        },
+      ],
+      'no-extra-semi': 'error',
+    },
+  },
+];`,
   );
-  mainContent = mainContent.replace('const port = process.env.PORT || 3000', 'const port = process.env.PORT ?? 3000');
-  mainContent = new ASTFileBuilder(mainContent)
-    .insertLinesToFunctionBefore(
-      'bootstrap',
-      'app.listen',
-      `app.useGlobalPipes(
-        new ValidationPipe({
-          transform: true,
-          transformOptions: {
-            excludeExtraneousValues: true,
-          },
-        }),
-      );`,
-    )
-    .insertLinesToFunctionBefore(
-      'bootstrap',
-      'app.listen',
-      `app.enableVersioning({
-        type: VersioningType.URI,
-        defaultVersion: '1',
-      });`,
-    )
-    .addImports('WinstonLogger', `@${npmScope}/shared/logger`)
-    .addImports('ValidationPipe', '@nestjs/common')
-    .addImports('VersioningType', '@nestjs/common')
-    .addReturnTypeToFunction('bootstrap', 'Promise<void>')
-    .build();
-  tree.write(mainPath, mainContent);
+
+  tree.write(eslintConfigPath, eslintConfigContent);
 }
 
 function addDeclarationToModule(tree: Tree, projectRoot: string): void {
@@ -282,3 +179,75 @@ function addDeclarationToModule(tree: Tree, projectRoot: string): void {
     tree.write(appModulePath, fileContent.build());
   }
 }
+
+const commands: { [key: string]: string } = {
+  npm: 'npx',
+  yarn: 'yarn',
+  pnpm: 'pnpm exec',
+};
+
+export async function applicationGenerator(
+  tree: Tree,
+  options: ApplicationGeneratorOptions,
+): Promise<GeneratorCallback> {
+  const normalizedOptions = await normalizeOptions(tree, {
+    ...options,
+    strict: true,
+    skipFormat: true,
+    addPlugin: false,
+  });
+  const npmScope = getNpmScope(tree) ?? '';
+  const packageManager = detectPackageManager();
+
+  const libraryOptions = await normalizeLibraryOptions(tree, {
+    ...normalizedOptions,
+    name: 'shared-logger',
+    strict: true,
+    importPath: `@${npmScope}/shared/logger`,
+    directory: path.join(getRelativePathToWorkspaceRoot(), 'libs/shared/logger'),
+    skipFormat: true,
+    skipPackageJson: true,
+    testEnvironment: 'node',
+    addPlugin: false,
+  });
+
+  const appTasks = await nestApplicationGenerator(tree, normalizedOptions);
+  const libTasks = await generateLoggerLibrary(tree, libraryOptions);
+  if (!options.skipPackageJson) {
+    updatePackageJson(tree);
+  }
+  updateTsconfigJson(tree);
+  updatePrettier(tree);
+  updateESLint(tree);
+  if (!tree.exists('./husky/pre-commit')) {
+    generateFiles(tree, path.join(__dirname, 'files-root'), '', {
+      ...normalizedOptions,
+      command: commands[packageManager] ?? commands.npm,
+    });
+  }
+  tree.delete(path.join(normalizedOptions.appProjectRoot, 'src/main.ts'));
+  generateFiles(tree, path.join(__dirname, 'files'), normalizedOptions.appProjectRoot, {
+    ...normalizedOptions,
+    npmScope,
+  });
+  deleteFiles(tree, normalizedOptions.appProjectRoot);
+  addDeclarationToModule(tree, normalizedOptions.appProjectRoot);
+
+  if (!options.skipFormat) {
+    await formatFiles(tree);
+  }
+  return runTasksInSerial(
+    ...[
+      appTasks,
+      libTasks,
+      (): void => {
+        installPackagesTask(tree);
+      },
+      (): void => {
+        output.log({ title: `NestJS app generated successfully!` });
+      },
+    ],
+  );
+}
+
+export default applicationGenerator;

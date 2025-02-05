@@ -1,3 +1,4 @@
+import * as path from 'path';
 import {
   Tree,
   addDependenciesToPackageJson,
@@ -6,7 +7,6 @@ import {
   readProjectConfiguration,
 } from '@nx/devkit';
 import { readFile } from 'fs/promises';
-import * as path from 'path';
 import { ASTFileBuilder } from '../../utils/ast-file-builder';
 import { ensureConfigFile } from '../../utils/config/config-defaults';
 import { mergeDockerCompose } from '../../utils/merge';

@@ -1,6 +1,6 @@
+import { join } from 'path';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Transporter } from 'nodemailer';
-import { join } from 'path';
 import { MAILER_OPTIONS_PROVIDER_NAME, MAILER_TRANSPORT_PROVIDER_NAME } from '../lib/mailer.constants';
 import { MailerService } from '../lib/mailer.service';
 

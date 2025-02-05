@@ -2,7 +2,7 @@
   "typescript.preferences.importModuleSpecifier": "project-relative",
   "typescript.preferences.quoteStyle": "single",
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit"
+    "source.organizeImports.biome": "explicit"
   },
   "editor.formatOnSave": true,
   "eslint.validate": ["json"],
@@ -23,7 +23,14 @@
       "jestCommandLine": "nx run mailer:test"
     }
   ],
-  "debug.javascript.defaultRuntimeExecutable": {
-    "pwa-node": "/mise/shims/node"
+  "jest.runMode": {
+    "type": "on-save",
+    "testFileOnly": true,
+    "runAllTestsOnStartup": true
+  },
+  "jest.outputConfig": {
+    "revealOn": "run",
+    "revealWithFocus": "none",
+    "clearOnRun": "none"
   }
 }

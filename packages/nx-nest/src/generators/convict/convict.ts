@@ -1,17 +1,17 @@
+import * as path from 'path';
 import {
+  GeneratorCallback,
+  Tree,
   addDependenciesToPackageJson,
   formatFiles,
   generateFiles,
-  GeneratorCallback,
   installPackagesTask,
   readProjectConfiguration,
   runTasksInSerial,
-  Tree,
 } from '@nx/devkit';
 import { normalizeOptions as normalizeLibraryOptions } from '@nx/nest/src/generators/library/lib/normalize-options';
 import { libraryGenerator } from '@nx/nest/src/generators/library/library';
 import { NormalizedOptions } from '@nx/nest/src/generators/library/schema';
-import * as path from 'path';
 import { ASTFileBuilder } from '../../utils/ast-file-builder';
 import {
   ensureProjectIsAnApplication,

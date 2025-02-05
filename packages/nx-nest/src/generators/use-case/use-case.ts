@@ -1,6 +1,6 @@
-import { formatFiles, generateFiles, names, Tree } from '@nx/devkit';
-import { NameAndDirectoryOptions } from '@nx/devkit/src/generators/artifact-name-and-directory-utils';
 import { dirname, join, relative } from 'path';
+import { Tree, formatFiles, generateFiles, names } from '@nx/devkit';
+import { NameAndDirectoryOptions } from '@nx/devkit/src/generators/artifact-name-and-directory-utils';
 import { ASTFileBuilder } from '../../utils/ast-file-builder';
 import { normalizeOptions } from '../../utils/normalize-options';
 import { calculateTestFolderPath } from '../../utils/tree-utils';

@@ -8,7 +8,6 @@ describe('application generator', () => {
   const options: ApplicationGeneratorOptions = {
     name: 'something',
     directory: 'apps/something',
-    // projectNameAndRootFormat: 'as-provided',
   };
   let appConfig: ProjectConfiguration;
   let loggerConfig: ProjectConfiguration;
@@ -48,9 +47,9 @@ describe('application generator', () => {
       expect(fileContent).toMatchSnapshot();
     });
 
-    it('should update main.ts properly', () => {
-      const fileContent = tree.read(`${appConfig.sourceRoot}/main.ts`)?.toString('utf-8');
-      expect(fileContent).toMatchSnapshot();
+    it('should update main.ts and app.ts properly', () => {
+      expect(tree.read(`${appConfig.sourceRoot}/main.ts`)?.toString('utf-8')).toMatchSnapshot();
+      expect(tree.read(`${appConfig.sourceRoot}/main.ts`)?.toString('utf-8')).toMatchSnapshot();
     });
   });
 
@@ -70,6 +69,8 @@ describe('application generator', () => {
       expect(tree.exists(`.husky/pre-commit`)).toBeTruthy();
       expect(tree.exists(`.vscode/settings.json`)).toBeTruthy();
       expect(tree.exists(`.lintstagedrc.json`)).toBeTruthy();
+      expect(tree.read(`.husky/pre-commit`)?.toString('utf-8')).toMatchSnapshot();
+      expect(tree.read(`.lintstagedrc.json`)?.toString('utf-8')).toMatchSnapshot();
     });
     it('should add dependencies to package.json', async () => {
       const fileContent = tree.read('package.json')?.toString('utf-8');

@@ -1,4 +1,4 @@
 {
-  "*": "pnpm exec nx format:write  --uncommitted",
+  "*": "pnpm exec biome check --write --no-errors-on-unmatched --files-ignore-unknown=true ",
   "*.ts": ["pnpm exec nx affected --target=lint --uncommitted --fix --"]
 }
