@@ -6,11 +6,13 @@
     "ignore": [
       "dist",
       "coverage",
+      ".husky",
       ".nx",
       "**/templates",
       "**/__snapshots__",
       "**/pnpm-lock.yaml",
       "**/.angular",
+      "**/files",
       ".angular",
       ".pnpm-store",
       "tmp"
@@ -29,7 +31,19 @@
     "ignore": []
   },
   "organizeImports": { "enabled": true },
-  "linter": { "enabled": false },
+  "linter": {
+    "enabled": false,
+    "rules": {
+      "suspicious": {
+        "noDebugger": "off",
+        "noConsoleLog": "info"
+      },
+      "style": {
+        "noShoutyConstants": "warn",
+        "useNamingConvention": "error"
+      }
+    }
+  },
   "javascript": {
     "parser": {
       "unsafeParameterDecoratorsEnabled": true
@@ -43,7 +57,11 @@
       "bracketSameLine": false,
       "quoteStyle": "single",
       "attributePosition": "auto",
-      "bracketSpacing": true
+      "bracketSpacing": true,
+      "indentWidth": 2,
+      "indentStyle": "space",
+      "lineEnding": "lf",
+      "enabled": true
     }
   },
   "json": {

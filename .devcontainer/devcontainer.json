@@ -6,7 +6,9 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "features": {},
+  "features": {
+    "ghcr.io/schlich/devcontainer-features/powerlevel10k": {}
+  },
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
@@ -15,20 +17,23 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "mise self-update && mise install",
+  "postCreateCommand": "mise self-update && mise install -y",
 
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-toolsai.jupyter",
         "ms-azuretools.vscode-docker",
+        "dbaeumer.vscode-eslint",
         "GitLab.gitlab-workflow",
         "eamodio.gitlens",
+        "biomejs.biome",
         "christian-kohler.npm-intellisense",
         "christian-kohler.path-intellisense",
-        "esbenp.prettier-vscode",
-        "hverlin.mise-vscode"
+        "hverlin.mise-vscode",
+        "usernamehw.errorlens",
+        "Orta.vscode-jest",
+        "nrwl.angular-console"
       ]
     }
   }

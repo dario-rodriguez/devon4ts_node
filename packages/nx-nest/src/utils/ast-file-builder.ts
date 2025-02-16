@@ -174,7 +174,7 @@ export class ASTFileBuilder {
           initializer: '[' + moduleNameToInsert + ']',
         });
       }
-    } catch (e) {
+    } catch {
       // Do nothing
       return undefined;
     }
@@ -247,7 +247,7 @@ export class ASTFileBuilder {
           initializer: '[ TypeOrmModule.forFeature([' + entityName + '])]',
         });
       }
-    } catch (e) {
+    } catch {
       // do nothing
       // console.error(e);
     }
@@ -291,7 +291,7 @@ export class ASTFileBuilder {
           initializer: '[ TypeOrmModule.forFeature([' + repositoryName + 'Repository ])]',
         });
       }
-    } catch (e) {
+    } catch {
       // do nothing
       // console.error(e);
     }

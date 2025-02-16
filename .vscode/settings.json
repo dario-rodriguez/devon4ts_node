@@ -5,7 +5,14 @@
     "source.organizeImports.biome": "explicit"
   },
   "editor.formatOnSave": true,
+  "editor.defaultFormatter": "biomejs.biome",
   "eslint.validate": ["json"],
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
   "jest.virtualFolders": [
     {
       "name": "logform",
@@ -32,5 +39,8 @@
     "revealOn": "run",
     "revealWithFocus": "none",
     "clearOnRun": "none"
+  },
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "/home/dario/.local/share/mise/shims/node"
   }
 }

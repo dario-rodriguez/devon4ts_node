@@ -1,5 +1,4 @@
 import * as path from 'path';
-/* eslint-disable no-console */
 import {
   GeneratorCallback,
   Tree,
@@ -180,7 +179,9 @@ function addDeclarationToModule(tree: Tree, projectRoot: string): void {
   }
 }
 
-const commands: { [key: string]: string } = {
+const commands: {
+  [key: string]: string;
+} = {
   npm: 'npx',
   yarn: 'yarn',
   pnpm: 'pnpm exec',
@@ -244,7 +245,9 @@ export async function applicationGenerator(
         installPackagesTask(tree);
       },
       (): void => {
-        output.log({ title: `NestJS app generated successfully!` });
+        output.log({
+          title: `NestJS app generated successfully!`,
+        });
       },
     ],
   );
